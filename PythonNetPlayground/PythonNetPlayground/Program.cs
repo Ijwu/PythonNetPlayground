@@ -15,8 +15,9 @@ namespace PythonNetPlayground
             while (true)
             { 
                 Console.Write(">>> ");
+
                 var input = Console.ReadLine();
-                if (input == "exit")
+                if (input == "exit()")
                 {
                     return;
                 }
