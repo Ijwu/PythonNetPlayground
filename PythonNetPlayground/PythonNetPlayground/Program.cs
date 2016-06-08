@@ -12,6 +12,8 @@ namespace PythonNetPlayground
         static void Main(string[] args)
         {
             PythonEngine.Initialize();
+
+            var globals = CreateGlobals();
             while (true)
             { 
                 Console.Write(">>> ");
@@ -20,6 +22,20 @@ namespace PythonNetPlayground
                 if (input == "exit()")
                 {
                     return;
+                }
+
+                using (Py.GIL())
+                {
+                    var ret = PythonEngine.RunString(input, globals.Handle, IntPtr.Zero);
+                    
+                    if (ret != null)
+                    {
+                        //Print
+                    }
+                    else
+                    {
+                        var exp = new PythonException();
+                    }
                 }
             }
         }
