@@ -22,5 +22,12 @@ namespace PythonNetPlayground
                 }
             }
         }
+
+        private static PyDict CreateGlobals()
+        {
+           var globals = new PyDict();
+            globals.SetItem("random", PythonEngine.ImportModule("random"));
+            return globals;
+        }
     }
 }
