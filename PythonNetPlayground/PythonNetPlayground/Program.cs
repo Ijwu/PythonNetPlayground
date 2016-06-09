@@ -26,15 +26,21 @@ namespace PythonNetPlayground
 
                 using (Py.GIL())
                 {
-                    var ret = PythonEngine.RunString(input, globals.Handle, IntPtr.Zero);
+                    var ret = PythonEngine.RunString($"RESULTS_VARIABLE = {input}", globals.Handle, IntPtr.Zero);
                     
                     if (ret != null)
                     {
-                        //Print
+                        Console.WriteLine(globals.GetItem("RESULTS_VARIABLE"));
                     }
                     else
                     {
-                        var exp = new PythonException();
+                        var exception = new PythonException();
+                        ret = PythonEngine.RunString(input, globals.Handle, IntPtr.Zero);
+                        if (ret == null)
+                        {
+                            exception = new PythonException();
+                            Console.WriteLine(exception.Message);
+                        }
                     }
                 }
             }
